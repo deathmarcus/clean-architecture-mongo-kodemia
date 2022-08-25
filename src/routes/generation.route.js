@@ -8,7 +8,7 @@ const router = express.Router()
 router.post("/", async (request, response) => {
     try {
         const { body } = request
-        const [generation] = await createGeneration(body)
+        const generation = await createGeneration(body)
         response.status(201)
         response.json({
             success: true,

@@ -1,16 +1,12 @@
 const Generation = require("../models/generation.model")
-const Mentor = require("../models/mentor.model")
+const { createMentor } = require("../usecases/mentor.usecase")
 
-const createMentor = (mentorData) => {
-    const mentor = Mentor.create(mentorData)
-    return mentor
-}
 
 const createGeneration = async (generationData) => {
-    const generation = await Generation.create(generationData)
-    const { mentors } = generation
-    const mentor = Mentor.insertMany(mentors)
-    return [generation]
+    const mentorsWithGeneration = generationData.mentors.map((mentor) =>({...mentor, generation: generationData.name}))
+    const mentors = await createMentor(mentorsWithGeneration)
+    const generation = await Generation.create({...generationData, mentors})
+    return generation
 }
 
 module.exports = { createGeneration, createMentor}
