@@ -1,6 +1,5 @@
 const express = require("express")
 const {
-    createMentor,
     createGeneration
 } = require("../usecases/generation.usecase")
 
@@ -9,15 +8,12 @@ const router = express.Router()
 router.post("/", async (request, response) => {
     try {
         const { body } = request
-        console.log(body.mentors)
-        const generation = await createGeneration(body)
-        const mentor = await createMentor(body.mentors)
+        const [generation] = await createGeneration(body)
         response.status(201)
         response.json({
             success: true,
             data: {
-                generation,
-                mentor
+                generation
             }
         }) 
     }catch(error) {

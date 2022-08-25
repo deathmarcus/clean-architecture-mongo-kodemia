@@ -32,10 +32,10 @@ const generationSchema = new mongoose.Schema({
                 age: {
                     type: Number
                   },
-                  type: {
+                type: {
                     type: String,
                     enum: ["ProgramLead", "Mentor", "B-Mentor"]
-                  }
+                }
             }
         ]
     }

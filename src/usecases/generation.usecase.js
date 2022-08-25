@@ -6,9 +6,11 @@ const createMentor = (mentorData) => {
     return mentor
 }
 
-const createGeneration = (generationData) => {
-    const generation = Generation.create(generationData)
-    return generation
+const createGeneration = async (generationData) => {
+    const generation = await Generation.create(generationData)
+    const { mentors } = generation
+    const mentor = Mentor.insertMany(mentors)
+    return [generation]
 }
 
 module.exports = { createGeneration, createMentor}
